@@ -2,6 +2,8 @@ import React, {useEffect} from 'react'
 import { connect } from 'react-redux'
 import { GetProducts } from '../actions'
 import  Card  from './Card'
+import Spinner from './Spinner'
+
 
 const Products = (props) => {
   useEffect(() => {
@@ -9,9 +11,9 @@ const Products = (props) => {
       props.GetProducts();
   },[])
   
-  console.log("reducer props",props);
-  const {_products,dark,searchData}=props
-console.log("reducer products: " ,_products);
+  // console.log("reducer props",props);
+  const {_products,dark,searchData,Carts}=props
+// console.log("reducer products: " ,_products);
   if(searchData.length>0){
     return (
 
@@ -20,7 +22,7 @@ console.log("reducer products: " ,_products);
             {
               searchData.map((item,index)=>{
               return ( <div className="col-md-3 my-3" key={index}>
-              <Card image={item.image} title={item.title} price={item.price} item={item} dark={dark}/>
+              <Card image={item.image} title={item.title} price={item.price} item={item} quantity={item.quantity} dark={dark} />
           </div>)
               })
             }
@@ -36,7 +38,9 @@ console.log("reducer products: " ,_products);
             {
               _products.map((item,index)=>{
               return ( <div className="col-md-3 my-3" key={index}>
-              <Card image={item.image} title={item.title} price={item.price} item={item} dark={dark}/>
+              <Card image={item.image} title={item.title} price={item.price} item={item} dark={dark}
+              carts={Carts}
+              />
           </div>)
               })
             }
@@ -44,16 +48,18 @@ console.log("reducer products: " ,_products);
     )
   } 
   else return(
-    <div className="container"> "Loading"</div>
+    // <div className="container"> "Loading"</div>
+    <Spinner/>
   )
 
   
 }
 const mapStatetoProps=state=>{
-  console.log("state",state);
+  // console.log("state",state);
   return{
     _products:state._todoProduct._products,
-    searchData:state._todoProduct.searchData
+    searchData:state._todoProduct.searchData,
+    Carts:state._todoProduct.Carts
   }
 }
 const  mapDispatchToProps = (dispatch) => {

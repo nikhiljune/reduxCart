@@ -3,6 +3,10 @@ import { connect } from 'react-redux'
 import { AddCart } from '../actions'
 
 export const Card=(props) => {
+
+  
+
+  console.log('cart ',props.carts);
   return (
 <div className="card container" style={{width: "18rem",backgroundColor:props.dark ? 'black' : 'white', border:props.dark ? '0.1px solid white' :'0.1px solid black'}} >
   <img src={props.image} style={{width:'186px',height:'280px', margin:'auto'}} className="card-img-top" alt="..."/>
